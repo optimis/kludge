@@ -20,7 +20,6 @@ module Kludge
     end
 
     def value=(value)
-      p value
       @value = if value.kind_of?(Hash)
         if value[:id]
           @name.to_s.classify.constantize.find(value.delete(:id)).tap { |v| v.assign_attributes(value) }

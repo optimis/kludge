@@ -22,7 +22,6 @@ module Kludge
     end
 
     def value=(value)
-      p value
       @value = value.map do |val|
         if val.kind_of?(Hash)
           if val[:id].present?
