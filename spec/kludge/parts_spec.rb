@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Kludge::Parts do
   let(:parts) { Kludge::Parts.new }
-  let(:trunk_val) { mock :trunk_val, :valid? => true }
-  let(:branch_val) { mock :branch_val, :valid? => true }
+  let(:trunk_val) { mock :trunk_val, :valid? => true, :branch= => true }
+  let(:branch_val) { mock :branch_val, :valid? => true, :leaves= => true }
   let(:leaves_val) { mock :leaves_val, :valid? => true }
   let(:trunk)  { Kludge::One.new(:trunk, :value => trunk_val) }
   let(:branch) { Kludge::One.new(:branch, :belongs_to => :trunk, :value => branch_val) }

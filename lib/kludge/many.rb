@@ -2,6 +2,10 @@ module Kludge
   class Many < Part
 
     def save
+      if parent
+        parent.value.send("#{name}=", value)
+      end
+
       value.each(&:save)
       super
     end
@@ -22,18 +26,19 @@ module Kludge
     end
 
     def value=(value)
-      @value = value.map do |val|
-        if val.kind_of?(Hash)
-          if val[:id].present?
-            @name.to_s.classify.constantize.find(val.delete(:id)).tap { |v| v.assign_attributes(val) }
-          else
+      @value = if value.is_a?(Hash)
+        value.map do |key, value|
+          @name.to_s.classify.constantize.find(value.delete(:id)).tap { |v| v.assign_attributes(value) }
+        end
+      else
+        value.map do |val|
+          if val.is_a?(Hash)
             @name.to_s.classify.constantize.new(val)
+          else
+            val
           end
-        else
-          val
         end
       end
     end
-
   end
 end

@@ -2,6 +2,7 @@ module Kludge
   class One < Part
 
     def save
+      parent.value.send("#{name}=", value) if parent
       value.save
       super
     end

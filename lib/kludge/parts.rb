@@ -57,4 +57,3 @@ module Kludge
     end
   end
 end
-
